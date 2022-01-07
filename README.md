@@ -1,7 +1,7 @@
 # visualize-setup
 Visualize any testbed (supports both .xml and .yaml) (undisclosed format)
 
-## [Check out this webpage](https://abhira0.github.io/visualize-setup/)
+## [Check out this webpage (it's interactive)](https://abhira0.github.io/visualize-setup/)
 
 ## Features
 * Interactive network graph: Able to move nodes
@@ -24,5 +24,6 @@ Visualize any testbed (supports both .xml and .yaml) (undisclosed format)
 ## Use
 1. Clone the repository or just downloading the testbed_visualizer.py would suffice.
 2. Run: `python testbed_visualizer.py <testbed_path>`
+3. New html file with the same name as input file will be generated. Also, python script will automatically open the html file in your default browser after saving it locally.
 ## Bugs & Errors
 * Please raise issues on github.
