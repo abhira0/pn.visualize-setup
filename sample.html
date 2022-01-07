@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 98vw;
+            height: 95vh;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "h0", "label": "h0", "shape": "ellipse", "title": "\u003cp\u003ename: server1\u003cbr\u003emgmtip: 192.168.14.23/23\u003cbr\u003emgmtif: e1\u003c/p\u003e"}, {"id": "h1", "label": "h1", "shape": "ellipse", "title": "\u003cp\u003ename: server2\u003cbr\u003emgmtip: 192.168.14.25/23\u003cbr\u003emgmtif: e2\u003c/p\u003e"}, {"id": "h2", "label": "h2", "shape": "ellipse", "title": "\u003cp\u003ename: server3\u003cbr\u003emgmtip: 192.168.14.27/23\u003cbr\u003emgmtif: eno1\u003c/p\u003e"}, {"color": "#9a31a8", "id": "s0", "label": "s0", "shape": "box", "title": "\u003cp\u003ename: switch0\u003cbr\u003einbandip: 192.168.14.2/24\u003cbr\u003emgmtip: 192.168.14.19/23\u003cbr\u003emgmtif: sa\u003cbr\u003eplatform: swi\u003cbr\u003eloopback_port: 41\u003c/p\u003e"}, {"color": "#9a31a8", "id": "s1", "label": "s1", "shape": "box", "title": "\u003cp\u003ename: switch01\u003cbr\u003einbandip: 192.168.25.25/24\u003cbr\u003emgmtip: 192.168.14.20/23\u003cbr\u003emgmtif: sa\u003cbr\u003eplatform: swi\u003cbr\u003eloopback_port: 41\u003c/p\u003e"}, {"color": "#9a31a8", "id": "s2", "label": "s2", "shape": "box", "title": "\u003cp\u003ename: switch3\u003cbr\u003einbandip: 192.168.0.23/24\u003cbr\u003emgmtip: 192.168.14.21/23\u003cbr\u003emgmtif: sa\u003cbr\u003eplatform: draco\u003cbr\u003eloopback_port: 41\u003c/p\u003e"}]);
+        edges = new vis.DataSet([{"from": "s0", "title": "\u003cp\u003e\u003cp\u003e\u003cb\u003es0-h0-1\u003c/b\u003e\u003cbr\u003eport: enp3s0f0\u003cbr\u003espeed: 10g\u003cbr\u003eipaddr: 192.1.110.10\u003cbr\u003emask: 24\u003c/p\u003e\u003cp\u003e\u003cb\u003es0-h0-2\u003c/b\u003e\u003cbr\u003eport: enp3s0f1\u003cbr\u003espeed: 10g\u003cbr\u003eipaddr: 192.1.110.10\u003cbr\u003emask: 24\u003c/p\u003e\u003c/p\u003e", "to": "h0", "width": 1.5}, {"from": "s0", "title": "\u003cp\u003e\u003cp\u003e\u003cb\u003es0-h1-1\u003c/b\u003e\u003cbr\u003eport: enp1s0f0\u003cbr\u003espeed: 10g\u003cbr\u003eipaddr: 192.1.110.20\u003cbr\u003emask: 24\u003c/p\u003e\u003cp\u003e\u003cb\u003es0-h1-2\u003c/b\u003e\u003cbr\u003eport: enp1s0f1\u003cbr\u003espeed: 10g\u003cbr\u003eipaddr: 192.1.110.30\u003cbr\u003emask: 24\u003c/p\u003e\u003c/p\u003e", "to": "h1", "width": 1.5}, {"from": "s0", "title": "\u003cp\u003e\u003cp\u003e\u003cb\u003es0-s1-40g-1\u003c/b\u003e\u003cbr\u003eport: 33\u003cbr\u003espeed: disable\u003c/p\u003e\u003cp\u003e\u003cb\u003es0-s1-40g-2\u003c/b\u003e\u003cbr\u003eport: 37\u003cbr\u003espeed: disable\u003c/p\u003e\u003cp\u003e\u003cb\u003es0-s1-1\u003c/b\u003e\u003cbr\u003eport: 29\u003cbr\u003espeed: 10g\u003c/p\u003e\u003cp\u003e\u003cb\u003es0-s1-2\u003c/b\u003e\u003cbr\u003eport: 30\u003cbr\u003espeed: 10g\u003c/p\u003e\u003cp\u003e\u003cb\u003es0-s1-3\u003c/b\u003e\u003cbr\u003eport: 31\u003cbr\u003espeed: 10g\u003c/p\u003e\u003cp\u003e\u003cb\u003es0-s1-4\u003c/b\u003e\u003cbr\u003eport: 32\u003cbr\u003espeed: 10g disable\u003c/p\u003e\u003c/p\u003e", "to": "s1", "width": 4.5}, {"from": "s0", "title": "\u003cp\u003e\u003cp\u003e\u003cb\u003es0-s2-40g-1\u003c/b\u003e\u003cbr\u003eport: 15\u003cbr\u003espeed: 40g disable\u003c/p\u003e\u003cp\u003e\u003cb\u003es0-s2-40g-2\u003c/b\u003e\u003cbr\u003eport: 37\u003cbr\u003espeed: 40g disable\u003c/p\u003e\u003cp\u003e\u003cb\u003es0-s2-1\u003c/b\u003e\u003cbr\u003eport: 11\u003cbr\u003espeed: 10g disable\u003c/p\u003e\u003cp\u003e\u003cb\u003es0-s2-2\u003c/b\u003e\u003cbr\u003eport: 12\u003cbr\u003espeed: 10g disable\u003c/p\u003e\u003cp\u003e\u003cb\u003es0-s2-3\u003c/b\u003e\u003cbr\u003eport: 13\u003cbr\u003espeed: 10g disable\u003c/p\u003e\u003cp\u003e\u003cb\u003es0-s2-4\u003c/b\u003e\u003cbr\u003eport: 14\u003cbr\u003espeed: 10g disable\u003c/p\u003e\u003c/p\u003e", "to": "s2", "width": 4.5}, {"from": "s1", "title": "\u003cp\u003e\u003cp\u003e\u003cb\u003es1-h0-3\u003c/b\u003e\u003cbr\u003eport: ens73f0\u003cbr\u003espeed: 10g\u003cbr\u003eipaddr: 192.1.110.10\u003cbr\u003emask: 24\u003c/p\u003e\u003c/p\u003e", "to": "h0", "width": 0.75}, {"from": "s1", "title": "\u003cp\u003e\u003cp\u003e\u003cb\u003es1-h2-1\u003c/b\u003e\u003cbr\u003eport: enp1s0f1\u003cbr\u003espeed: 10g\u003cbr\u003eipaddr: 192.1.123.50\u003cbr\u003emask: 24\u003c/p\u003e\u003c/p\u003e", "to": "h2", "width": 0.75}, {"from": "s1", "title": "\u003cp\u003e\u003cp\u003e\u003cb\u003es1-s2-40g-1\u003c/b\u003e\u003cbr\u003eport: 20\u003cbr\u003espeed: 40g disable\u003c/p\u003e\u003cp\u003e\u003cb\u003es1-s2-40g-2\u003c/b\u003e\u003cbr\u003eport: 25\u003cbr\u003espeed: 40g disable\u003c/p\u003e\u003cp\u003e\u003cb\u003es1-s2-1\u003c/b\u003e\u003cbr\u003eport: 21\u003cbr\u003espeed: 10g disable\u003c/p\u003e\u003cp\u003e\u003cb\u003es1-s2-2\u003c/b\u003e\u003cbr\u003eport: 22\u003cbr\u003espeed: 10g disable\u003c/p\u003e\u003cp\u003e\u003cb\u003es1-s2-3\u003c/b\u003e\u003cbr\u003eport: 23\u003cbr\u003espeed: 10g disable\u003c/p\u003e\u003cp\u003e\u003cb\u003es1-s2-4\u003c/b\u003e\u003cbr\u003eport: 24\u003cbr\u003espeed: 10g disable\u003c/p\u003e\u003c/p\u003e", "to": "s2", "width": 4.5}, {"from": "s2", "title": "\u003cp\u003e\u003cp\u003e\u003cb\u003es2-h2-1\u003c/b\u003e\u003cbr\u003eport: enp1s0f0\u003cbr\u003espeed: 10g\u003cbr\u003eipaddr: 192.1.110.60\u003cbr\u003emask: 24\u003c/p\u003e\u003c/p\u003e", "to": "h2", "width": 0.75}, {"from": "s2", "title": "\u003cp\u003e\u003cp\u003e\u003cb\u003es2-h0-1\u003c/b\u003e\u003cbr\u003eport: ens73f1\u003cbr\u003espeed: 10g\u003cbr\u003eipaddr: 192.1.110.10\u003cbr\u003emask: 24\u003c/p\u003e\u003c/p\u003e", "to": "h0", "width": 0.75}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
