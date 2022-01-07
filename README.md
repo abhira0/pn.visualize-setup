@@ -1,8 +1,10 @@
 # visualize-setup
 Visualize any testbed (supports both .xml and .yaml) (undisclosed format)
 
+## [Check out this webpage](https://abhira0.github.io/visualize-setup/)
+
 ## Features
-* Interactive network graph
+* Interactive network graph: Able to move nodes
 * Hover on nodes to get node info
 * Hover on edges to get edge info
 * Edge width is determined by number of ports between nodes.
