@@ -11,6 +11,10 @@ Visualize any testbed (supports both .xml and .yaml) (undisclosed format)
 ## Snapshot
 ![Snapshot](https://github.com/abhira0/visualize-setup/blob/main/pics/snapshot.PNG)
 <br>
+![Snapshot](https://github.com/abhira0/visualize-setup/blob/main/pics/Capture2.PNG)
+<br>
+![Snapshot](https://github.com/abhira0/visualize-setup/blob/main/pics/Capture3.PNG)
+<br>
 
 ## Requirements
 * Python 3.9.6+
@@ -20,5 +24,5 @@ Visualize any testbed (supports both .xml and .yaml) (undisclosed format)
 ## Use
 1. Clone the repository or just downloading the testbed_visualizer.py would suffice.
 2. Run: `python testbed_visualizer.py <testbed_path>`
-## Bugs & Erros
+## Bugs & Errors
 * Please raise issues on github.
