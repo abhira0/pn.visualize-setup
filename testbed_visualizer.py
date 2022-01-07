@@ -14,7 +14,8 @@ class Pretty:
     @staticmethod
     def edgeTitle(title):
         string = "<p>"
-        for c_name, c_det in title.items():
+        title = [(i, j) for i, j in sorted(title.items(), key=lambda x: x[1]["port"])]
+        for c_name, c_det in title:
             string += "<p>"
             string += "<b>" + c_name + "</b><br>"
             string += "<br>".join(f"{i}: {j}" for i, j in c_det.items())
