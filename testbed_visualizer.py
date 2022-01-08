@@ -71,14 +71,18 @@ class PlotMe:
         for i, j in self.hm["testbed"]["switch"].items():
             title = Pretty.nodeTitle(j["property"])
             # obsolete when used with 'box' shape, use 'square' to visualize the val
-            self.net.add_node(i, label=i, color="#9a31a8", shape="box", title=title)
+            # tmp = {"shape": "image", "image": "./icons/switch.png"}
+            tmp = {"shape": "box"}
+            self.net.add_node(i, label=i, color="#9a31a8", title=title, **tmp)
 
     def plotHosts(self):
         if "host" not in self.hm["testbed"]:
             return
         for i, j in self.hm["testbed"]["host"].items():
             title = Pretty.nodeTitle(j["property"])
-            self.net.add_node(i, label=i, shape="ellipse", title=title)
+            # tmp = {"shape": "image", "image": "./icons/server.png"}
+            tmp = {"shape": "ellipse"}
+            self.net.add_node(i, label=i, title=title, **tmp)
 
     def plotSwitchEdges(self):
         for connection, connection_det in self.conn.items():
