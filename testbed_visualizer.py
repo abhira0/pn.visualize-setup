@@ -14,11 +14,11 @@ class Pretty:
     @staticmethod
     def edgeTitle(title):
         string = "<p>"
-        title = [(i, j) for i, j in sorted(title.items(), key=lambda x: x[1]["port"])]
+        title = [(i, j) for i, j in sorted(title.items(), key=lambda x: x[1][1])]
         for c_name, c_det in title:
             string += "<p>"
             string += "<b>" + c_name + "</b><br>"
-            string += "<br>".join(f"{i}: {j}" for i, j in c_det.items())
+            string += "<br>".join(f"{i}: {j}" for i, j in c_det)
             string += "</p>"
         string += "</p>"
         return string
@@ -51,9 +51,11 @@ class PlotMe:
                     connection_det = switch_det[connection]
                     self.conn[(src, dest)] = self.conn.get((src, dest), {})
                     self.conn[(src, dest)][connection] = self.conn[(src, dest)].get(
-                        connection, {}
+                        connection, []
                     )
-                    self.conn[(src, dest)][connection].update(connection_det)
+                    for key, value in connection_det.items():
+                        entry = (f"{switch_name} {key}", value)
+                        self.conn[(src, dest)][connection].append(entry)
         if "host" in self.hm["testbed"]:
             for host_name, host_det in self.hm["testbed"]["host"].items():
                 for connection in list(host_det.keys())[1:]:
@@ -61,9 +63,11 @@ class PlotMe:
                     connection_det = host_det[connection]
                     self.conn[(src, dest)] = self.conn.get((src, dest), {})
                     self.conn[(src, dest)][connection] = self.conn[(src, dest)].get(
-                        connection, {}
+                        connection, []
                     )
-                    self.conn[(src, dest)][connection].update(connection_det)
+                    for key, value in connection_det.items():
+                        entry = (f"{host_name} {key}", value)
+                        self.conn[(src, dest)][connection].append(entry)
 
     def plotSwitches(self):
         if "switch" not in self.hm["testbed"]:
@@ -89,12 +93,11 @@ class PlotMe:
             src, dest = connection
             width = len(connection_det) * 0.75
             try:
-                self.net.add_edge(
-                    src, dest, title=Pretty.edgeTitle(connection_det), width=width
-                )
-            except:
+                tmp = {"title": Pretty.edgeTitle(connection_det), "width": width}
+                self.net.add_edge(src, dest, color="magenta", **tmp)
+            except Exception as e:
                 print(
-                    f"[!] Omiting an edge: One of the nodes is not avaiable for {connection}"
+                    f"[!] Omiting an edge: One of the nodes is not available for {connection}"
                 )
 
 
