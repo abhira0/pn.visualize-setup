@@ -56,7 +56,7 @@ class PlotMe:
                     for key, value in connection_det.items():
                         entry = (f"{switch_name} {key}", value)
                         self.conn[(src, dest)][connection].append(entry)
-        if "host" in self.hm["testbed"]:
+        if "host" in self.hm["testbed"] and self.hm["testbed"]["host"] != None:
             for host_name, host_det in self.hm["testbed"]["host"].items():
                 for connection in list(host_det.keys())[1:]:
                     src, dest, *_ = connection.split("-")
@@ -80,7 +80,7 @@ class PlotMe:
             self.net.add_node(i, label=i, color="#9a31a8", title=title, **tmp)
 
     def plotHosts(self):
-        if "host" not in self.hm["testbed"]:
+        if "host" not in self.hm["testbed"] or self.hm["testbed"]["host"] == None:
             return
         for i, j in self.hm["testbed"]["host"].items():
             title = Pretty.nodeTitle(j["property"])
