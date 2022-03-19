@@ -31,6 +31,9 @@ class PlotMe:
                 self.hm = xmltodict.parse(f.read())
             elif filename.endswith(".yml") or filename.endswith(".yaml"):
                 self.hm = yaml.safe_load(f)
+            else:
+                print(f"FILE NOT SUPPORTED: {filename}")
+                quit()
         self.op_name = os.path.basename(filename).split(".")[0] + ".html"
         self.net = Network(height="95vh", width="98vw")
         self.conn = {}
