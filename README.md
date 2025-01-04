@@ -1,7 +1,7 @@
 # visualize-setup
 Visualize any testbed (supports both .xml and .yaml) (undisclosed format)
 
-## [Check out this webpage (it's interactive)](https://abhira0.github.io/visualize-setup/)
+## [Check out this webpage (it's interactive)](https://abhira0.github.io/pn.visualize-setup/)
 
 ## Features
 * Interactive network graph: Able to move nodes
